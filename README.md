@@ -2,16 +2,12 @@
 
 Microservice project for Software Engineering I at Oregon State University
 
+# Folders
+
+client folder contains project for the class
+
+microservice folder contains microservice implementation for teammates project
+
 # How to run
 
-npm
-
-```bash
-npm run dev
-```
-
-yarn
-
-```bash
-yarn dev
-```
+See README in respective folders
