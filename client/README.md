@@ -7,10 +7,18 @@ Microservice project for Software Engineering I at Oregon State University
 npm
 
 ```bash
+npm install
+```
+
+```bash
 npm run dev
 ```
 
 yarn
+
+```bash
+yarn install
+```
 
 ```bash
 yarn dev
