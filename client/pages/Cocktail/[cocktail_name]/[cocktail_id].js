@@ -1,16 +1,28 @@
-import Container from "@mui/material/Container";
+import {
+  Container,
+  Card,
+  CardHeader,
+  CardMedia,
+  CardContent,
+  CardActions,
+  Grid,
+  Button,
+  Typography,
+} from "@mui/material";
 import Image from "next/image";
 import styled from "@emotion/styled";
-import Card from "@mui/material/Card";
-import CardHeader from "@mui/material/CardHeader";
-import CardMedia from "@mui/material/CardMedia";
-import CardContent from "@mui/material/CardContent";
-import CardActions from "@mui/material/CardActions";
-import { Grid, Button, Typography } from "@mui/material";
 import Router from "next/router";
 
 // Styles
-const StyledText = styled(Typography)({
+const StandardTypography = styled(Typography)({
+  fontSize: "50px",
+  fontWeight: "bold",
+  textAlign: "center",
+  paddingTop: "5px",
+  paddingBottom: "3px",
+});
+
+const CardStyledText = styled(Typography)({
   fontSize: "20px",
   fontWeight: "bold",
   textAlign: "left",
@@ -18,7 +30,7 @@ const StyledText = styled(Typography)({
   paddingBottom: "25px",
 });
 
-const HeaderText = styled(Typography)({
+const CardHeaderText = styled(Typography)({
   fontSize: "25px",
   fontWeight: "600",
   textAlign: "left",
@@ -39,6 +51,25 @@ const NewSectionText = styled(Typography)({
 const StyledButton = styled(Button)({
   margin: "auto",
   display: "block",
+  size: "small",
+  color: "secondary",
+  variant: "outlined",
+  type: "submit",
+
+  ":hover": {
+    color: "black",
+    borderColor: "white",
+    backgroundColor: "#cfd8dc",
+  },
+});
+
+const ViewAllStyledButton = styled(StyledButton)({
+  size: "large",
+  type: "submit",
+  width: 500,
+  height: 50,
+  justifyContent: "space-around",
+  fontSize: 20,
 
   ":hover": {
     color: "black",
@@ -53,7 +84,7 @@ function handleSubmit(name, id) {
   Router.push(url);
 }
 
-//Click Handler to view full recipe
+//Click Handler to view all recipes by spirit type
 function handleViewAllSubmit(name, id) {
   let url = `/Recipes/${name}/${id}`;
   Router.push(url);
@@ -62,23 +93,18 @@ function handleViewAllSubmit(name, id) {
 export default function LearnSpirit({ data, spirits, Type }) {
   const spiritType = Type.name;
   const spiritTypeID = Type.id;
+
   return (
     <Container maxWidth="md">
-      <Typography
-        fontSize={50}
-        fontWeight="bold"
-        textAlign="center"
-        paddingTop={5}
-        paddingBottom={3}
-      >
-        {data.name}
-      </Typography>
+      {/*Recipe*/}
+      <StandardTypography>{data.name}</StandardTypography>
       <Image src={data.image} alt={data.name} width={500} height={300} />
-      <HeaderText>Ingredients:</HeaderText>
-      <StyledText>{data.ingredients}</StyledText>
-      <HeaderText>Instructions:</HeaderText>
-      <StyledText>{data.instructions}</StyledText>
+      <CardHeaderText>Ingredients:</CardHeaderText>
+      <CardStyledText>{data.ingredients}</CardStyledText>
+      <CardHeaderText>Instructions:</CardHeaderText>
+      <CardStyledText>{data.instructions}</CardStyledText>
 
+      {/*Top 2 recipe cards from selected spirit type */}
       <NewSectionText>Other Recipes:</NewSectionText>
       <Grid
         container
@@ -106,13 +132,7 @@ export default function LearnSpirit({ data, spirits, Type }) {
                     </Typography>
                   </CardContent>
                   <CardActions disableSpacing>
-                    <StyledButton
-                      size="small"
-                      color="secondary"
-                      variant="outlined"
-                      type="submit"
-                      onClick={() => handleSubmit(c.name, c.id)}
-                    >
+                    <StyledButton onClick={() => handleSubmit(c.name, c.id)}>
                       Go to Recipe
                     </StyledButton>
                   </CardActions>
@@ -122,21 +142,13 @@ export default function LearnSpirit({ data, spirits, Type }) {
           })}
       </Grid>
       <Container maxWidth="md" sx={{ paddingBottom: 20 }}>
-        <StyledButton
-          size="large"
+        <ViewAllStyledButton
           color="secondary"
           variant="outlined"
-          type="submit"
-          style={{
-            width: 500,
-            height: 50,
-            justifyContent: "space-around",
-            fontSize: 20,
-          }}
-          onClick={() => handleViewAllSubmit(spiritType, spiritTypeID)}
+          onClick={() => handleViewAllSubmit(data.name, data.id)}
         >
           See All
-        </StyledButton>
+        </ViewAllStyledButton>
       </Container>
     </Container>
   );

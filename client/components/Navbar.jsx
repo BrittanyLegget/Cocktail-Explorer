@@ -11,6 +11,7 @@ const Navbar = ({ navLinks }) => {
         display: { xs: `none`, md: `flex` },
       }}
     >
+      {/* Place navigation links on Navbar */}
       <Stack direction="row" spacing={4}>
         {navLinks.map(({ title, path }, i) => (
           <MuiNextLink
@@ -20,10 +21,8 @@ const Navbar = ({ navLinks }) => {
             sx={{ color: `black`, fontSize: "14px", fontWeight: "800" }}
           >
             {title}
-          </MuiNextLink>
-          
-        ))}
-      
+          </MuiNextLink>  
+        ))}     
       </Stack>
     </Toolbar>
   );

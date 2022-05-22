@@ -6,22 +6,16 @@ import Menu from "@mui/icons-material/Menu";
 import MuiNextLink from "./MUINextLink";
 import { useState } from "react";
 
+//When screen becomes too small for navlinks change to sidedrawer format for navlinks
 const SideDrawer = ({ navLinks }) => {
-  const [state, setState] = useState({
-    right: false,
-  });
-
+  
+  //Manage sidedrawer state
+  const [state, setState] = useState({right: false,});
   const toggleDrawer = (anchor, open) => (event) => {
-    if (
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
-      return;
-    }
-
     setState({ ...state, [anchor]: open });
   };
 
+  //Navlinks inside sidedrawer
   const list = (anchor) => (
     <Box
       sx={{ width: 250, marginTop: `auto`, marginBottom: `auto` }}
@@ -39,53 +33,11 @@ const SideDrawer = ({ navLinks }) => {
             textTransform: `uppercase`,
           }}
         >
-          <MuiNextLink sx={{ color: "common.white" }} href={path}>
+          <MuiNextLink sx={{ color: "common.black" }} href={path}>
             {title}
-          </MuiNextLink>
-          
+          </MuiNextLink>     
         </Typography>
       ))}
-        <Typography
-          variannt="button" 
-          sx={{
-            ml: 5,
-            my: 2,
-            fontFamily:"Poppins", 
-            textTransform: `uppercase`,
-          }}
-        >
-           <MuiNextLink
-            key="Registry"
-            href="https://www.myregistry.com/wedding-registry/danielle-sherman-and-jonathan-blout-klamath-falls-or/3156496"
-            variant="button"
-            target="_blank"
-            variannt="button"
-            sx={{ color: `white`, fontSize:"16px"
-             }}
-          >
-            Registry
-          </MuiNextLink>
-          </Typography>
-          <Typography
-          variannt="button" 
-          sx={{
-            ml: 5,
-            my: 2,
-            fontFamily:"Poppins", 
-            textTransform: `uppercase`,
-          }}
-        >
-          <MuiNextLink
-            key="Photos"
-            href="/photos"
-            variant="button"
-            variannt="button"
-            sx={{ color: `white`, fontSize:"16px"
-             }}
-          >
-            Photos
-          </MuiNextLink>
-          </Typography>
     </Box>
   );
 
@@ -96,7 +48,7 @@ const SideDrawer = ({ navLinks }) => {
         aria-label="menu"
         onClick={toggleDrawer("right", true)}
         sx={{
-          color: `common.white`,
+          color: "secondary.main",
           display: { xs: `inline`, md: `none` },
         }}
       >

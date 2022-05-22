@@ -1,4 +1,4 @@
-/* eslint-disable jsx-a11y/anchor-has-content */
+
 import * as React from 'react';
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
@@ -25,8 +25,7 @@ export const NextLinkComposed = React.forwardRef(function NextLinkComposed(props
   );
 });
 
-// A styled version of the Next.js Link component:
-// https://nextjs.org/docs/#with-link
+// A styled version of the Next.js Link component
 const Link = React.forwardRef(function Link(props, ref) {
   const {
     activeClassName = 'active',
@@ -34,7 +33,7 @@ const Link = React.forwardRef(function Link(props, ref) {
     className: classNameProps,
     href,
     noLinkStyle,
-    role, // Link don't have roles.
+    role,
     ...other
   } = props;
 
@@ -43,8 +42,6 @@ const Link = React.forwardRef(function Link(props, ref) {
   const className = clsx(classNameProps, {
     [activeClassName]: router.pathname === pathname && activeClassName,
   });
-
-
 
   return (
     <MuiLink

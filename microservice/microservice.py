@@ -1,39 +1,33 @@
-import json
-import time
+from time import sleep
+
 import requests
-import random
-from random import choice
 
-prevNumber = -1
+from common import (
+    ENDPOINT,
+    MICROSERVICE_FILEPATH,
+    MICROSERVICE_START_TEXT,
+    read_file,
+    write_num_to_file,
+)
 
-while True:
-    time.sleep(1)
 
-    fi = open('../microservice.txt', 'r')
-    content = fi.read()
-    fi.close()
+def main():
+    sleep(1)
+    print("Listening...")
+    line = read_file(filepath=MICROSERVICE_FILEPATH)
+    if MICROSERVICE_START_TEXT in line:
+        print(
+            f"{MICROSERVICE_START_TEXT} found in {MICROSERVICE_FILEPATH}. Making GET request to {ENDPOINT}"
+        )
+        r = requests.get(ENDPOINT)
+        json_blob = r.json()
+        num_objects = len(json_blob["cocktails"])
+        print(
+            f"Found {num_objects} objects at {ENDPOINT}. Writing to {MICROSERVICE_FILEPATH}"
+        )
+        write_num_to_file(filepath=MICROSERVICE_FILEPATH, num=str(num_objects))
 
-    if content == "GET":
-        res = requests.get('http://localhost:5000/api/clubs')
-        response = json.loads(res.text)
 
-        # Number of clubs
-        numClubs = len(response)
-
-        # Random number in range of clubs that is not the one selected on last round
-        rand = (choice([i for i in range(0, numClubs) if i != prevNumber]))
-
-        # Uncomment for random where same club can be selected twice in
-        rand = random.randrange(0, numClubs)
-
-        # Select club at random number index
-        club = response[rand]["name"]
-
-        prevNumber = rand
-
-    # Write club name to microservice.txt
-    fi = open('../microservice.txt', 'w+')
-    fi.write(club)
-
-    # Close file
-    fi.close()
+if __name__ == "__main__":
+    while True:
+        main()

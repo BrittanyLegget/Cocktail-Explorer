@@ -1,4 +1,3 @@
-import { Container, Box, Grid, Stack, Card } from "@mui/material";
 import { Hero } from "../components/Hero";
 import heroImage from "../public/m-s-meeuwesen-QYWYnzvPTAQ-unsplash.jpg";
 

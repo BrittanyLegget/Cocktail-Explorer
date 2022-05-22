@@ -80,32 +80,52 @@
  * Spinner derived from https://tobiasahlin.com/spinkit/.
  */
 
-.spinner {
-  width: 60px;
-  height: 60px;
+/*
+ * Spinner derived from https://tobiasahlin.com/spinkit/.
+ */
 
-  position: relative;
+.spinner {
   margin: 100px auto;
+  width: 40px;
+  height: 40px;
+  position: relative;
+  text-align: center;
+
+  -webkit-animation: sk-rotate 2s infinite linear;
+  animation: sk-rotate 2s infinite linear;
 }
 
-.double-bounce1,
-.double-bounce2 {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  background-color: #0f5044;
-  opacity: 0.6;
+.dot1,
+.dot2 {
+  width: 60%;
+  height: 60%;
+  display: inline-block;
   position: absolute;
   top: 0;
-  left: 0;
+  background-color: #cc6a4f;
+  border-radius: 100%;
 
   -webkit-animation: sk-bounce 2s infinite ease-in-out;
   animation: sk-bounce 2s infinite ease-in-out;
 }
 
-.double-bounce2 {
+.dot2 {
+  top: auto;
+  bottom: 0;
   -webkit-animation-delay: -1s;
   animation-delay: -1s;
+}
+
+@-webkit-keyframes sk-rotate {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@keyframes sk-rotate {
+  100% {
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+  }
 }
 
 @-webkit-keyframes sk-bounce {

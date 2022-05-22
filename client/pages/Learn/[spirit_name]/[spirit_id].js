@@ -1,19 +1,28 @@
-import Container from "@mui/material/Container";
-import Image from "next/image";
+import {
+  Container,
+  Card,
+  CardHeader,
+  CardMedia,
+  CardContent,
+  CardActions,
+  Grid,
+  Button,
+  Typography,
+} from "@mui/material";
 import styled from "@emotion/styled";
-import Card from "@mui/material/Card";
-import CardHeader from "@mui/material/CardHeader";
-import CardMedia from "@mui/material/CardMedia";
-import CardContent from "@mui/material/CardContent";
-import CardActions from "@mui/material/CardActions";
-import { Grid, Button, Typography } from "@mui/material";
 import Router from "next/router";
+
+// Styles
+const StandardTypography = styled(Typography)({
+  fontWeight: "bold",
+  textAlign: "center",
+  paddingTop: "10px",
+});
 
 const NewSectionText = styled(Typography)({
   fontSize: "40px",
   fontWeight: "400",
   textAlign: "center",
-  paddingTop: "5px",
   color: "gray",
   paddingBottom: "30px",
 });
@@ -21,6 +30,25 @@ const NewSectionText = styled(Typography)({
 const StyledButton = styled(Button)({
   margin: "auto",
   display: "block",
+  size: "small",
+  color: "secondary",
+  variant: "outlined",
+  type: "submit",
+
+  ":hover": {
+    color: "black",
+    borderColor: "white",
+    backgroundColor: "#cfd8dc",
+  },
+});
+
+const ViewAllStyledButton = styled(StyledButton)({
+  size: "large",
+  type: "submit",
+  width: 500,
+  height: 50,
+  justifyContent: "space-around",
+  fontSize: 20,
 
   ":hover": {
     color: "black",
@@ -45,24 +73,13 @@ function handleViewAllSubmit(name, id) {
 export default function LearnSpirit({ data, spirits }) {
   return (
     <Container maxWidth="md">
-      <Typography
-        fontSize={50}
-        fontWeight="bold"
-        textAlign="center"
-        paddingTop={5}
-      >
-        {data.name}
-      </Typography>
-      <Typography
-        fontSize={20}
-        fontWeight="bold"
-        textAlign="center"
-        paddingTop={5}
-        paddingBottom={10}
-      >
+      {/* Spirit name and description */}
+      <StandardTypography fontSize={50}>{data.name}</StandardTypography>
+      <StandardTypography fontSize={20} paddingBottom={10}>
         {data.description}
-      </Typography>
+      </StandardTypography>
 
+      {/*Top 2 recipe cards from selected spirit type */}
       <NewSectionText>{data.name} Recipes:</NewSectionText>
       <Grid
         container
@@ -90,13 +107,7 @@ export default function LearnSpirit({ data, spirits }) {
                     </Typography>
                   </CardContent>
                   <CardActions disableSpacing>
-                    <StyledButton
-                      size="small"
-                      color="secondary"
-                      variant="outlined"
-                      type="submit"
-                      onClick={() => handleSubmit(c.name, c.id)}
-                    >
+                    <StyledButton onClick={() => handleSubmit(c.name, c.id)}>
                       Go to Recipe
                     </StyledButton>
                   </CardActions>
@@ -106,21 +117,13 @@ export default function LearnSpirit({ data, spirits }) {
           })}
       </Grid>
       <Container maxWidth="md" sx={{ paddingBottom: 20 }}>
-        <StyledButton
-          size="large"
+        <ViewAllStyledButton
           color="secondary"
           variant="outlined"
-          type="submit"
-          style={{
-            width: 500,
-            height: 50,
-            justifyContent: "space-around",
-            fontSize: 20,
-          }}
           onClick={() => handleViewAllSubmit(data.name, data.id)}
         >
           See All
-        </StyledButton>
+        </ViewAllStyledButton>
       </Container>
     </Container>
   );
@@ -129,18 +132,14 @@ export default function LearnSpirit({ data, spirits }) {
 export async function getServerSideProps(context) {
   //Get spirit from url parameter
   const query = context.query.spirit_id;
+
+  //Get recipes by selected spirit type
   const res = await fetch(
     `https://spring-street-app.uw.r.appspot.com/spirits/${query}`
   );
   const data = await res.json();
 
-  //recipe
-  // const ctl = await fetch(
-  //   `https://spring-street-app.uw.r.appspot.com/cocktails/${query}`
-  // );
-  // const cocktails = await ctl.json();
-
-  //2 recipes for same spirit type
+  //Get top 2 recipes by selected spirit type
   const spr = await fetch(
     `https://spring-street-app.uw.r.appspot.com/cocktails/spirit/excp/${query}`
   );
