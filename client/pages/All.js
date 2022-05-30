@@ -5,11 +5,12 @@ import { CocktailCard } from "../components/CocktailCard";
 
 export default function RecipeCard({ data }) {
   const [count, setCount] = useState();
+  const microservice = "http://localhost:3000/api/microservice";
 
   useEffect(() => {
     // Send "GET" to microservice
     async function sendGet() {
-      await fetch("http://localhost:3000/api/microservice", {
+      await fetch(microservice, {
         method: "POST",
         body: "GET",
         headers: {
@@ -22,7 +23,7 @@ export default function RecipeCard({ data }) {
     //Get count recipes from microservice
     async function getCount() {
       let responseBody = {};
-      const response = await fetch("http://localhost:3000/api/microservice", {
+      const response = await fetch(microservice, {
         method: "GET",
       });
       responseBody = await response.json();
@@ -53,7 +54,7 @@ export default function RecipeCard({ data }) {
   );
 }
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps() {
   const res = await fetch(
     `https://spring-street-app.uw.r.appspot.com/cocktails`
   );
