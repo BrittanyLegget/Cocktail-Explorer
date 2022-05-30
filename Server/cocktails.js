@@ -11,7 +11,7 @@ router.use(bodyParser.json());
 
 /* ------------- Begin Cocktail Model Functions ------------- */
 
-//Create a Spirit
+//Create a cocktails
 function post_cocktail(name, spirit, ingredients, instructions, image) {
   var key = datastore.key(COCKTAILS);
   const data = {
@@ -26,7 +26,7 @@ function post_cocktail(name, spirit, ingredients, instructions, image) {
   });
 }
 
-//Get all labels - paginated
+//Get all cocktails - paginated
 function get_cocktails(req) {
   var q = datastore.createQuery(COCKTAILS).limit(30);
   const results = {};
@@ -48,7 +48,7 @@ function get_cocktails(req) {
   });
 }
 
-//Get label by id
+//Get cocktail by id
 function get_cocktail(id) {
   const key = datastore.key([COCKTAILS, parseInt(id, 10)]);
   return datastore.get(key).then((entity) => {
@@ -63,36 +63,6 @@ function get_cocktail(id) {
   });
 }
 
-// // Get all spirit recipes
-// function get_spirit_cocktails(req, id) {
-//   const key = datastore.key([COCKTAILS, 'spirit']);
-//   const [entity] = await datastore.get(taskKey)
-//   return datastore
-//     .get(key)
-//     .then((entity) => {
-//       const data = entity[0];
-//       const keys = data.id((g_id) => {
-//         const query = datastore.createQuery("COCKTAILS").filter("spirit", "=", id);
-//         return datastore.key([COCKTAILS, parseInt(g_id, 10)]);
-//       });
-//       return datastore.get(keys);
-//     })
-//     .then((ing) => {
-//       ing = ing[0].map(ds.fromDatastore);
-//       ing.forEach((object) => {
-//         object.self =
-//           req.protocol +
-//           "://" +
-//           req.get("host") +
-//           "/cocktails" +
-//           "/" +
-//           object.id;
-//       });
-//       return ing;
-//     });
-// }
-
-// //Get spirit by id
 function get_cocktail_spirit(id) {
   var q = datastore.createQuery(COCKTAILS).filter("spirit", "=", id);
   const results = {};
@@ -103,7 +73,7 @@ function get_cocktail_spirit(id) {
   });
 }
 
-// //Get spirit by id except current cocktail
+//Get spirit by id except current cocktail
 function get_cocktail_spirit_excp(id) {
   var q = datastore.createQuery(COCKTAILS).filter("spirit", "=", id).limit(2);
   const results = {};
@@ -114,7 +84,7 @@ function get_cocktail_spirit_excp(id) {
   });
 }
 
-//update boat
+//update cocktail
 function put_cocktail(id, name, spirit, ingredients, instructions, image) {
   const key = datastore.key([COCKTAILS, parseInt(id, 10)]);
   const data = {
@@ -127,7 +97,7 @@ function put_cocktail(id, name, spirit, ingredients, instructions, image) {
   return datastore.save({ key: key, data: data });
 }
 
-//delete spirit
+//Delete cocktail
 function delete_cocktail(id) {
   const key = datastore.key([COCKTAILS, parseInt(id, 10)]);
   return datastore.delete(key);
@@ -139,7 +109,6 @@ function get_spirit(id) {
   return datastore.get(key).then((entity) => {
     if (entity[0] === undefined || entity[0] === null) {
       console.log(entity);
-      // No entity found. Don't try to add the id attribute
       return entity;
     } else {
       entity = entity.map(ds.fromDatastore);
@@ -152,18 +121,25 @@ function get_spirit(id) {
 
 /* ------------- Begin Controller Functions ------------- */
 
-// Get all labels
+// Get all cocktails
 router.get("/", function (req, res) {
   get_cocktails(req).then((data) => {
     res.status(200).json(data);
   });
 });
 
-// Get a label by id
+// Get all cocktails
+router.get("/featured", function (req, res) {
+  get_cocktails(req).then((data) => {
+    var num = Math.floor(Math.random() * data.cocktails.length);
+    res.status(200).json(data.cocktails[num]);
+  });
+});
+
+// Get a cocktail by id
 router.get("/:id", function (req, res) {
   get_cocktail(req.params.id).then((data) => {
     if (data[0] === undefined || data[0] === null) {
-      // The 0th element is undefined. This means there is no boat with this id
       res.status(404).json({ Error: "No label with this id exists" });
     } else {
       res.status(200).json({
@@ -188,7 +164,6 @@ router.get("/:id", function (req, res) {
 router.get("/spirit/:id", function (req, res) {
   get_spirit(req.params.id).then((data) => {
     if (data[0] === undefined || data[0] === null) {
-      // The 0th element is undefined. This means there is no boat with this id
       res.status(404).json({ Error: "No spirit with this id exists" });
     } else {
       get_cocktail_spirit(req.params.id).then((result) => {
@@ -198,11 +173,10 @@ router.get("/spirit/:id", function (req, res) {
   });
 });
 
-// Get cocktails by spirit except current cocktail
+// Get cocktails by spirit
 router.get("/spirit/excp/:id", function (req, res) {
   get_spirit(req.params.id).then((data) => {
     if (data[0] === undefined || data[0] === null) {
-      // The 0th element is undefined. This means there is no boat with this id
       res.status(404).json({ Error: "No spirit with this id exists" });
     } else {
       get_cocktail_spirit_excp(req.params.id).then((result) => {
@@ -212,49 +186,7 @@ router.get("/spirit/excp/:id", function (req, res) {
   });
 });
 
-// // Get all spirit recipes
-// function get_spirit_cocktails(req, id) {
-//   const key = datastore.key([COCKTAILS, parseInt(id, 10)]);
-//   return datastore
-//     .get(key)
-//     .then((entity) => {
-//       const data = entity[0];
-//       const keys = data.ingredients.map((g_id) => {
-//         return datastore.key([LABELS, parseInt(g_id, 10)]);
-//       });
-//       return datastore.get(keys);
-//     })
-//     .then((ing) => {
-//       ing = ing[0].map(ds.fromDatastore);
-//       ing.forEach((object) => {
-//         object.self =
-//           req.protocol +
-//           "://" +
-//           req.get("host") +
-//           "/cocktails" +
-//           "/" +
-//           object.id;
-//       });
-//       return ing;
-//     });
-// }
-
-// Get spirit cocktails
-// router.get("/:id/cocktails", function (req, res) {
-//   get_spirit(req.params.id).then((data) => {
-//     if (data[0] === undefined || data[0] === null) {
-//       // The 0th element is undefined. This means there is no boat with this id
-//       res.status(404).json({ Error: "No spirit with this id exists" });
-//     } else {
-//       get_spirit_cocktails(req, req.params.id).then((result) => {
-//         res.status(200).json({
-//           cocktail: result,
-//         });
-//       });
-//     }
-//   });
-// });
-
+//Post new cocktail
 router.post("/", function (req, res) {
   if (
     (req.body.name != null || req.body.name != undefined) &&
@@ -289,7 +221,7 @@ router.post("/", function (req, res) {
   }
 });
 
-//update label
+//update cocktail
 router.put("/:id", function (req, res) {
   put_cocktail(
     req.params.id,
@@ -301,11 +233,10 @@ router.put("/:id", function (req, res) {
   ).then(res.status(200).end());
 });
 
-//delete label
+//delete cocktail
 router.delete("/:id", function (req, res) {
   get_cocktail(req.params.id).then((data) => {
     if (data[0] === undefined || data[0] === null) {
-      // The 0th element is undefined. This means there is no boat or load with this id
       res.status(404).json({
         Error: "No label with this id exists",
       });

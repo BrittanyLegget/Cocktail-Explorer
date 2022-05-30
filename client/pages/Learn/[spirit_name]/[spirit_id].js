@@ -1,16 +1,7 @@
-import {
-  Container,
-  Card,
-  CardHeader,
-  CardMedia,
-  CardContent,
-  CardActions,
-  Grid,
-  Button,
-  Typography,
-} from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import styled from "@emotion/styled";
-import Router from "next/router";
+import { CocktailCard } from "../../../components/CocktailCard";
+import { ViewAllBySpirit } from "../../../components/ViewAllBySpiritButton";
 
 // Styles
 const StandardTypography = styled(Typography)({
@@ -27,49 +18,6 @@ const NewSectionText = styled(Typography)({
   paddingBottom: "30px",
 });
 
-const StyledButton = styled(Button)({
-  margin: "auto",
-  display: "block",
-  size: "small",
-  color: "secondary",
-  variant: "outlined",
-  type: "submit",
-
-  ":hover": {
-    color: "black",
-    borderColor: "white",
-    backgroundColor: "#cfd8dc",
-  },
-});
-
-const ViewAllStyledButton = styled(StyledButton)({
-  size: "large",
-  type: "submit",
-  width: 500,
-  height: 50,
-  justifyContent: "space-around",
-  fontSize: 20,
-
-  ":hover": {
-    color: "black",
-    borderColor: "white",
-    backgroundColor: "#cfd8dc",
-  },
-});
-
-//Click Handler to view full recipe
-function handleSubmit(name, id) {
-  let url = `/Cocktail/${name}/${id}`;
-  Router.push(url);
-}
-
-//Click Handler to view full recipe
-function handleViewAllSubmit(name, id) {
-  let url = `/Recipes/${name}/${id}`;
-  Router.push(url);
-}
-
-/* Page Displays description of spirit based gathered from url paramter*/
 export default function LearnSpirit({ data, spirits }) {
   return (
     <Container maxWidth="md">
@@ -81,50 +29,8 @@ export default function LearnSpirit({ data, spirits }) {
 
       {/*Top 2 recipe cards from selected spirit type */}
       <NewSectionText>{data.name} Recipes:</NewSectionText>
-      <Grid
-        container
-        spacing={{ xs: 2, md: 3 }}
-        columns={{ xs: 4, sm: 8, md: 12 }}
-        paddingBottom={1}
-        sx={{ justifyContent: "space-around" }}
-      >
-        {spirits &&
-          spirits.cocktails.map((c, index) => {
-            return (
-              <Card sx={{ width: 345, margin: 3 }}>
-                <div key={index}>
-                  <CardHeader title={c.name} />
-                  <CardMedia
-                    component="img"
-                    image={c.image}
-                    alt={c.image}
-                    style={{ height: "200px", paddingTop: "2%" }}
-                    title={c.name}
-                  />
-                  <CardContent>
-                    <Typography variant="body2" color="text.secondary">
-                      {c.ingredients}
-                    </Typography>
-                  </CardContent>
-                  <CardActions disableSpacing>
-                    <StyledButton onClick={() => handleSubmit(c.name, c.id)}>
-                      Go to Recipe
-                    </StyledButton>
-                  </CardActions>
-                </div>
-              </Card>
-            );
-          })}
-      </Grid>
-      <Container maxWidth="md" sx={{ paddingBottom: 20 }}>
-        <ViewAllStyledButton
-          color="secondary"
-          variant="outlined"
-          onClick={() => handleViewAllSubmit(data.name, data.id)}
-        >
-          See All
-        </ViewAllStyledButton>
-      </Container>
+      <CocktailCard data={spirits} />
+      <ViewAllBySpirit name={data.name} id={data.id} />
     </Container>
   );
 }

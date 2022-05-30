@@ -1,5 +1,4 @@
-import { createTheme, responsiveFontSizes } from "@mui/material/styles";
-import { deepPurple, amber, red } from "@mui/material/colors";
+import { createTheme, responsiveFontSizes, styled } from "@mui/material/styles";
 
 // Create a theme instance.
 let theme = createTheme({
@@ -16,6 +15,18 @@ let theme = createTheme({
   },
 
   typography: {
+    title: {
+      fontWeight: "bold",
+      fontSize: 50,
+      textAlign: "center",
+      paddingTop: 20,
+      paddingBottom: 20,
+    },
+    subTitle: {
+      fontSize: 30,
+      textAlign: "center",
+      paddingTop: 100,
+    },
     fontFamily: ["Poppins"].join(","),
     fontSize: 14,
   },

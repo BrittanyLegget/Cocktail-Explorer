@@ -15,7 +15,7 @@ export function Hero({imgSrc, imgAlt, title, subtitle}){
           width: `100vw`,
           overflow: `hidden`,
           zIndex: -100,
-          mb: 15,
+          mb: 5,
         }}
       >  
         <Image src={imgSrc} alt={imgAlt} layout="fill" objectFit="cover" />
