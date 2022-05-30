@@ -1,7 +1,0 @@
-services:
-  app:
-    build: .
-    command: python microservice.py
-    network_mode: host
-    volumes:
-      - $PWD/pages/microservice.txt:/pages/microservice.txt
