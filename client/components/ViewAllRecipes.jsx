@@ -1,4 +1,5 @@
 import { Box, Button } from "@mui/material";
+import Router from "next/router";
 
 export function ViewAllRecipes(){
 

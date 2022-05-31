@@ -21,13 +21,6 @@ const StyledButton = styled(Button)({
   },
 });
 
-const StandardTypography = styled(Typography)({
-  fontSize: "50px",
-  fontWeight: "bold",
-  textAlign: "center",
-  paddingBottom: "20px",
-});
-
 export function FeaturedDrink({data}){
 
 //Click Handler to view full recipe
@@ -38,7 +31,7 @@ Router.push(url);
 
   return(
     <Container maxWidth="lg" >
-      <StandardTypography>Featured Cocktail</StandardTypography>
+      <Typography sx={{ typography: "title" }}>Featured Cocktail</Typography>
       <Grid
         container
         spacing={{ xs: 2, md: 3 }}

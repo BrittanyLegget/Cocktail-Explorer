@@ -30,6 +30,18 @@ let theme = createTheme({
     fontFamily: ["Poppins"].join(","),
     fontSize: 14,
   },
+  button: {
+    styledButton: {
+      margin: "auto",
+      display: "block",
+
+      ":hover": {
+        color: "black",
+        borderColor: "white",
+        backgroundColor: "#cfd8dc",
+      },
+    },
+  },
 });
 
 theme = responsiveFontSizes(theme);

@@ -5,14 +5,6 @@ import { CocktailCard } from "../../../components/CocktailCard";
 import { ViewAllBySpirit } from "../../../components/ViewAllBySpiritButton";
 
 // Styles
-const StandardTypography = styled(Typography)({
-  fontSize: "50px",
-  fontWeight: "bold",
-  textAlign: "center",
-  paddingTop: "5px",
-  paddingBottom: "3px",
-});
-
 const CardStyledText = styled(Typography)({
   fontSize: "20px",
   fontWeight: "bold",
@@ -30,20 +22,11 @@ const CardHeaderText = styled(Typography)({
   paddingBottom: "15px",
 });
 
-const NewSectionText = styled(Typography)({
-  fontSize: "40px",
-  fontWeight: "400",
-  textAlign: "center",
-  paddingTop: "5px",
-  color: "gray",
-  paddingBottom: "30px",
-});
-
 export default function LearnSpirit({ data, spirits, Type }) {
   return (
     <Container maxWidth="md">
       {/*Recipe*/}
-      <StandardTypography>{data.name}</StandardTypography>
+      <Typography sx={{ typography: "title" }}>{data.name}</Typography>
       <Image src={data.image} alt={data.name} width={500} height={300} />
       <CardHeaderText>Ingredients:</CardHeaderText>
       <CardStyledText>{data.ingredients}</CardStyledText>
@@ -51,9 +34,11 @@ export default function LearnSpirit({ data, spirits, Type }) {
       <CardStyledText>{data.instructions}</CardStyledText>
 
       {/*Top 2 recipe cards from selected spirit type */}
-      <NewSectionText>Other Recipes:</NewSectionText>
+      <Typography sx={{ typography: "title", color: "gray", fontSize: 40 }}>
+        Other {Type.name} Recipes:
+      </Typography>
       <CocktailCard data={spirits} />
-      <ViewAllBySpirit name={data.name} id={data.id} />
+      <ViewAllBySpirit name={Type.name} id={Type.id} />
     </Container>
   );
 }

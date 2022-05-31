@@ -1,34 +1,22 @@
 import { Container, Typography } from "@mui/material";
-import styled from "@emotion/styled";
 import { CocktailCard } from "../../../components/CocktailCard";
 import { ViewAllBySpirit } from "../../../components/ViewAllBySpiritButton";
-
-// Styles
-const StandardTypography = styled(Typography)({
-  fontWeight: "bold",
-  textAlign: "center",
-  paddingTop: "10px",
-});
-
-const NewSectionText = styled(Typography)({
-  fontSize: "40px",
-  fontWeight: "400",
-  textAlign: "center",
-  color: "gray",
-  paddingBottom: "30px",
-});
 
 export default function LearnSpirit({ data, spirits }) {
   return (
     <Container maxWidth="md">
       {/* Spirit name and description */}
-      <StandardTypography fontSize={50}>{data.name}</StandardTypography>
-      <StandardTypography fontSize={20} paddingBottom={10}>
+      <Typography sx={{ typography: "title" }}>{data.name}</Typography>
+      <Typography
+        sx={{ typography: "subtitle", fontSize: 20, paddingBottom: 10 }}
+      >
         {data.description}
-      </StandardTypography>
+      </Typography>
 
       {/*Top 2 recipe cards from selected spirit type */}
-      <NewSectionText>{data.name} Recipes:</NewSectionText>
+      <Typography sx={{ typography: "title", color: "gray", fontSize: 40 }}>
+        {data.name} Recipes:
+      </Typography>
       <CocktailCard data={spirits} />
       <ViewAllBySpirit name={data.name} id={data.id} />
     </Container>

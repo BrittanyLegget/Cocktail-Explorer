@@ -1,7 +1,6 @@
 import { Typography, Container } from "@mui/material";
-import { styled } from "@mui/system";
+import { RecipeSpiritTypeLinks } from "../components/RecipeSpiritTypeLinks";
 import { ViewAllRecipes } from "../components/ViewAllRecipes";
-import { SpiritTypeLinks } from "../components/SpiritTypeLinks";
 
 export default function RecipePage({ data }) {
   return (
@@ -9,7 +8,7 @@ export default function RecipePage({ data }) {
       <Typography sx={{ typography: "title" }}>
         Search for recipes by spirit by selecting one below
       </Typography>
-      <SpiritTypeLinks data={data} />
+      <RecipeSpiritTypeLinks data={data} />
 
       <Typography sx={{ typography: "subTitle" }}>
         Or Browse All Recipes

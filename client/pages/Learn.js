@@ -1,5 +1,5 @@
 import { Typography, Container } from "@mui/material";
-import { SpiritTypeLinks } from "../components/SpiritTypeLinks";
+import { LearnSpiritTypeLinks } from "../components/LearnSpiritTypeLinks";
 
 export default function LearnPage({ data }) {
   console.log({ data });
@@ -8,7 +8,7 @@ export default function LearnPage({ data }) {
       <Typography sx={{ typography: "title" }}>
         Select a spirit below to learn more
       </Typography>
-      <SpiritTypeLinks data={data} />
+      <LearnSpiritTypeLinks data={data} />
     </Container>
   );
 }

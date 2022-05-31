@@ -7,7 +7,7 @@ const LinkTypography = styled(Typography)({
   color: "#bf360c",
 });
 
-export function SpiritTypeLinks({data}){
+export function LearnSpiritTypeLinks({data}){
   return(
      <Stack
         direction="row"

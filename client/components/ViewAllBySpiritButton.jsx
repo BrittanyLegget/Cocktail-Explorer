@@ -35,7 +35,7 @@ export function ViewAllBySpirit({name, id}){
           variant="outlined"
           onClick={() => handleViewAllSubmit(name, id)}
         >
-          See All
+          See All {name} Recipes
         </ViewAllStyledButton>
   </Container>
 )}

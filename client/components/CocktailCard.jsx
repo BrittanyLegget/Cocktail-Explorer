@@ -54,9 +54,6 @@ function handleSubmit(name, id) {
                     </Typography>
                   </CardContent>
                   <CardActions disableSpacing>
-                    {/* <IconButton aria-label="add to favorites">
-                      <FavoriteIcon />
-                    </IconButton> */}
                     <StyledButton
                       size="small"
                       color="secondary"
