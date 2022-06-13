@@ -57,8 +57,8 @@ export default function FaqPage() {
 
       <FaqHeader>What’s a “twist”?</FaqHeader>
       <FaqText>
-        A twist refers to a swath of citrus peel—usually lemon, orange or
-        grapefruit with no white pith—that’s twisted over a drink so that its
+        A twist refers to a strip of citrus peel (usually lemon, orange or
+        grapefruit) with no white pith—that’s twisted over a drink so that its
         zest is expressed, releasing a light and bright citrusy flavor into the
         cocktail.
       </FaqText>
@@ -66,7 +66,7 @@ export default function FaqPage() {
       <FaqHeader>Should a Martini be shaken or stirred?</FaqHeader>
       <FaqText>
         Technically, a Martini can be either shaken or stirred depending on your
-        preference, but the classic way of preparing one is by stirring.
+        preference, but stirring is the classic way to preparing one.
       </FaqText>
 
       <FaqHeader>How much is in one shot, finger, dram, etc.?</FaqHeader>

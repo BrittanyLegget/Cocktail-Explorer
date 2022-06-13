@@ -28,14 +28,12 @@ export async function getServerSideProps(context) {
   const query = context.query.spirit_id;
 
   //Get recipes by selected spirit type
-  const res = await fetch(
-    `https://spring-street-app.uw.r.appspot.com/spirits/${query}`
-  );
+  const res = await fetch(process.env.API_URL + `/spirits/${query}`);
   const data = await res.json();
 
   //Get top 2 recipes by selected spirit type
   const spr = await fetch(
-    `https://spring-street-app.uw.r.appspot.com/cocktails/spirit/excp/${query}`
+    process.env.API_URL + `/cocktails/spirit/excp/${query}`
   );
   const spirits = await spr.json();
 

@@ -15,7 +15,7 @@ export default function LearnPage({ data }) {
 
 //Get all spirits types
 export async function getServerSideProps() {
-  const res = await fetch(`https://spring-street-app.uw.r.appspot.com/spirits`);
+  const res = await fetch(process.env.API_URL + "/spirits");
   const data = await res.json();
 
   return {

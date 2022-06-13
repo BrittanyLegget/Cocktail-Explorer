@@ -48,22 +48,18 @@ export async function getServerSideProps(context) {
   const query = context.query.cocktail_id;
 
   //recipe
-  const res = await fetch(
-    `https://spring-street-app.uw.r.appspot.com/cocktails/${query}`
-  );
+  const res = await fetch(process.env.API_URL + `/cocktails/${query}`);
   const data = await res.json();
   const spirit = data.spirit;
 
   //Top 2 recipes for same spirit type
   const spr = await fetch(
-    `https://spring-street-app.uw.r.appspot.com/cocktails/spirit/excp/${spirit}`
+    process.env.API_URL + `/cocktails/spirit/excp/${spirit}`
   );
   const spirits = await spr.json();
 
   //Spirit Type
-  const Typeres = await fetch(
-    `https://spring-street-app.uw.r.appspot.com/spirits/${spirit}`
-  );
+  const Typeres = await fetch(process.env.API_URL + `/spirits/${spirit}`);
   const Type = await Typeres.json();
   return {
     props: { data, spirits, Type },

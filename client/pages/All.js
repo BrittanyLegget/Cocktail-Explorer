@@ -55,9 +55,7 @@ export default function RecipeCard({ data }) {
 }
 
 export async function getServerSideProps() {
-  const res = await fetch(
-    `https://spring-street-app.uw.r.appspot.com/cocktails`
-  );
+  const res = await fetch(process.env.API_URL + "/cocktails");
   const data = await res.json();
 
   return {

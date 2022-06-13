@@ -17,9 +17,7 @@ export default function Home({ data }) {
 }
 
 export async function getServerSideProps(context) {
-  const res = await fetch(
-    `https://spring-street-app.uw.r.appspot.com/cocktails/featured`
-  );
+  const res = await fetch(process.env.API_URL + "/cocktails/featured");
   const data = await res.json();
 
   return {
